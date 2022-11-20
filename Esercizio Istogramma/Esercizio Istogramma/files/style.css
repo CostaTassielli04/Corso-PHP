@@ -1,0 +1,149 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+
+.skills-wrapper {
+  width: 700px;
+  height: 700px;
+  border: 1px solid black;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 100px;
+}
+
+.bar-graph_container {
+  width: 360px;
+  height: 300px;
+  border: 1px solid black;
+  position: relative;
+}
+
+.bar-graph_levels {
+/*   border: 1px solid black; */
+  width: 75px;
+  height: 190px;
+  text-align: right;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-right: 285px;
+  border-bottom: 1px solid #bbb;
+}
+
+.bar-graph_level {
+  display: block;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.bar-graph_bars {
+/*   border: 1px solid black; */
+  position: absolute;
+  top: -40px;
+  right: 40px;
+  width: 190px;
+  height: 270px;
+  transform: rotate(270deg);
+/*   border-left: 1px solid #bbb; */
+}
+
+.bar-graph_bar {
+  height: 35px;
+/*   border: 1px solid black; */
+  border-radius: 0 3px 3px 0;
+  margin-bottom: 22px;
+  position: relative;
+}
+
+#level-1 {
+  width: 40px;
+}
+
+#level-2 {
+  width: 85px;
+}
+
+#level-3 {
+  width: 133px;
+}
+
+#level-4 {
+  width: 185px;
+}
+
+.pink {
+  background-color: pink;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.blue {
+  background-color: cyan;
+}
+
+.green {
+  background-color: green;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.bar-graph_items {
+  position: absolute;
+  bottom: 70px;
+  right: -5px;
+  font-size: 14px;
+}
+
+.bar-graph_item {
+  display: inline-block;
+  transform: rotate(45deg) ;
+  margin-left: 15px;
+/*   -webkit-font-smoothing: none; */
+/*   -webkit-transform: rotate(45deg) translateZ(0) scale(1.0, 1.0); */
+}
+
+.tooltip {
+  position: absolute;
+  top: -9px;
+  right: -130px;
+  display: block;
+  opacity: 0;
+  transform: rotate(90deg);
+  text-align: center;
+  width: 150px;
+  z-index: 100;
+  transition: all 0.2s;
+  background-color: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.tooltip:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-top: solid rgba(0,0,0,0.8) 10px;
+  bottom: -10px;
+  content: " ";
+  height: 0;
+  left: 50%;
+  margin-left: -13px;
+  position: absolute;
+  width: 0;
+}
+
+.bar-graph_bar:hover > .tooltip {
+  opacity: 1;
+  transform: rotate(90deg);
+  transition: all 0.2s;
+}
+
+table{
+  margin:0 auto;
+}
