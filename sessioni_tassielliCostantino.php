@@ -17,24 +17,38 @@
 </head>
 <body>
     <?php
+
+    session_start();
     if(!isset($_POST["invia"])&&!isset($_POST["logout"])){
         Registrazione();
     }else if(isset($_POST["invia"])&&!isset($_POST["logout"])){
-        Autenticazione();
+        if(isset($_SESSION['username'])&&isset($_SESSION['password'])){
+            Verifica();
+        }else{
+            Autenticazione();
+        }
     }else if(isset($_POST["logout"])){
-        session_unset () ;
+        session_unset();
         echo "Le tue credenziali sono state eliminate con successo";
-        echo<<<FINE
-        <div class="form-group">
+        echo<<<fine
         <form action="sessioni_tassielliCostantino.php" method="POST">
         <div class="form-group">
         <button type="submit" class="btn btn-success">Ritorna alla login</button>
         </div>     
         </form>
-
-        FINE;
+        fine;
     }
-
+    
+    function form(){
+        echo<<<fine
+        <form action="sessioni_tassielliCostantino.php" method="POST">
+        <div class="form-group">
+        <button type="submit" class="btn btn-success">Ritorna alla login</button>
+         <button type="submit" name="logout" value="Invia dati" class="btn btn-primary">Clicca qui per il logout</button>
+        </div>     
+        </form>
+        fine;
+    }
     function Registrazione(){
         echo<<<FINE
         <div class="col-md-6">
@@ -68,22 +82,25 @@
         </div>
         FINE;
     }
-
+    function Verifica(){
+        if(strcmp($_SESSION['username'],$_POST['username'])==0 && strcmp($_SESSION['password'],$_POST['password'])==0){
+                echo "Bentornato <b>". $_SESSION['username']."</b> ci sei mancato<br>";
+                form();
+        }else{
+        Registrazione(); 
+        echo "<p>Credenziali non corrette!</p>" ;
+        }
+}
     function Autenticazione(){
-        session_start();
         $username = $_POST['username'];
         $password = $_POST['password'];
-        //Salvo i dati nella sessione
         $_SESSION['username'] = $username;
         $_SESSION['password'] = $password;
+        //Salvo i dati nella sessione
         $username = $_SESSION['username'];
-        $password = $_SESSION['password'];
         echo "Benvenuto $username, hai completato il login<br>";
-        echo "Ciao " . $username . " la tua password è " . $password."<br>";
-        echo 
-        " <form action=\"sessioni_tassielliCostantino.php\" method=\"post\">
-        <button type=\"submit\" name=\"logout\" value=\"Invia dati\" class=\"btn btn-primary\">Clicca qui per il logout</button>
-        </form>";
+        echo "Ciao " . $username ."<br>";
+        form();
     }
    
     ?>
