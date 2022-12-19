@@ -2,9 +2,11 @@
 session_start();
 include('index.html');
         if(!isset($_POST['invia'])){
-            $menu=array();
+            //creo il mio vettore associativo prodotto=>prezzo e lo carico in sessione
+            $menu=array();    
             $_SESSION['listino']=$menu;
         }else{
+            //recupero il contenuto della sessione e aggiorno il mio menu coi nuovi dati
             $menu=$_SESSION['listino'];
             $name=$_POST['prodotto'];
             $price=$_POST['prezzo'];
@@ -13,14 +15,15 @@ include('index.html');
             tabella();
         }
         echo<<<FINE
-        <div class="card-body">
+        <div class="card-body" style="text-align:center;">
+            <b>Inserisci il menù</b>
             <form action="menu.php" method="POST" class="login">
             <div class="form-group">
-            <label for="nome">Squadra:</label>
-            <input type="text" class="form-control" name="prodotto" placeholder="Pizza,pane,bevanda"><br>
-            <label for="prezzo">Prodotto:</label>
-            <input type="number" name="prezzo" placeholder="$0.00">
-            </div>
+            <label for="nome">Prodotto:</label>
+            <input type="text" name="prodotto" placeholder="Pizza,pane,bevanda"><br>
+            <label for="prezzo">Prezzo:</label>
+            <input type="number" name="prezzo" placeholder="£0.00" step="0.50">
+            </div><br>
             <div class="card-footer">
             <button type="submit" class="btn btn-success" value="invia" name="invia">Aggiungi Prodotto</button>
             <button type="reset" class="btn btn-warning" float-right" value="cancella" name="cancella">Cancella</button>
@@ -35,16 +38,16 @@ include('index.html');
         print_r($menu);
         echo"</pre>";
 
-        function tabella(){
-            echo"<table>";
-            echo"<tr>";
-            echo"<th>Nome</th>";
-            echo"<th>Prezzo</th></tr>";
-            $menu=$_SESSION['listino'];
+        function tabella(){?>
+          <table  class="table table-success table-striped">
+            <tr>
+            <th>Nome</th>
+            <th>Prezzo</th></tr>
+          <?php  $menu=$_SESSION['listino'];
             foreach($menu as $label=>$price){?>
                 <tr>
                 <td><?php echo $label?></td>
-                <td><?php echo $price?></td>
+                <td>£  <?php echo $price?></td>
                 </tr>
            <?php }?>
             </table>
