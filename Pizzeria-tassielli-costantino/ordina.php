@@ -1,26 +1,34 @@
 <?php 
 include('index.html');
 session_start();
+$listino=$_SESSION['listino'];
 
 if(!isset($_POST['invia'])){
-    Ordina();
+    Ordina($listino);
 }else{
-    Erogazione();
+    Erogazione($listino);
 }
 
-function Erogazione(){
+function Erogazione($listino){
     $utente=$_POST['utente'];
     $indirizzo=$_POST['indirizzo'];
     $num=$_POST['quantita'];
     $appellitivo=$_POST['Cliente'];
     echo"
     Egr.". $appellitivo ." ". $utente ."<br>"; 
-    echo"Grazie per la sua prenotazione";
-    FINE;
+    echo"Grazie per la sua prenotazione<br>Il vostro ordine:<br>";
+    echo "<ul>";
+    $j=0;
+    foreach($listino as $prodotto=>$prezzo){
+        echo "<li><b>x".$num[$j]."</b>$prodotto (£$prezzo)</li>";
+        $j++;
+    }
+    echo "</ul>";
+
 }
 
-function Ordina(){    //con questa funzione invio un ordine
-    $listino=$_SESSION['listino'];
+function Ordina($listino){    //con questa funzione invio un ordine
+   
  echo<<<FINE
         <div class="card-body">
         <div class="form-group">
