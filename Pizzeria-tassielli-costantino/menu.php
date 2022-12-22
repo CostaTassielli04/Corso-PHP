@@ -16,13 +16,13 @@ include('index.html');
         }
         echo<<<FINE
         <div class="card-body" style="text-align:center;">
-            <b>Inserisci il menù</b>
+            <h2>Inserisci il menù</h2>
             <form action="menu.php" method="POST" class="login">
             <div class="form-group">
             <label for="nome">Prodotto:</label>
-            <input type="text" name="prodotto" placeholder="Pizza,pane,bevanda"><br>
+            <input type="text" name="prodotto" placeholder="Pizza,pane,bevanda,etc..."><br>
             <label for="prezzo">Prezzo:</label>
-            <input type="number" name="prezzo" placeholder="£0.00" step="0.50">
+            <input type="number" name="prezzo" placeholder="£0.00" step="0.10">
             </div><br>
             <div class="card-footer">
             <button type="submit" class="btn btn-success" value="invia" name="invia">Aggiungi Prodotto</button>
