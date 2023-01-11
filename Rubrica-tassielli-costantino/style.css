@@ -2,3 +2,7 @@ label {
     color: goldenrod;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+
+th {
+    color: crimson;
+}
