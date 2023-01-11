@@ -12,31 +12,18 @@
 <body>
 <?php
 session_start();
-if (!isset($_SESSION['contatti'])) {
-    $rubrica = array();
-} else {
-    $rubrica = $_SESSION['contatti'];
+if(!isset($_POST['invia'])){
+    $rubrica=array();    
+    $_SESSION['rubrica']=$rubrica;
+}else if($_POST['invia']=="rubrica"){
+    Elenco();
 }
-        if(!isset($_POST['invia'])){
-            $rubrica=array();
-            $_SESSION['contatti']=$rubrica;
-            Form();
-        }
-        else if($_POST['invia']=='rubrica'){
-            Elenco();
-        } 
-        else{
-                $rubrica=$_SESSION['contatti'];
-                $rubrica[]=$_POST['rubrica'];
-                $_SESSION['contatti']=$rubrica;
-                Form();
-            }
-
-        echo"Array di record:";
-        echo"<pre>";
-        print_r($rubrica);
-        echo"</pre>";
-            function Form(){
+else{
+    $rubrica=$_SESSION['rubrica'];
+    $rubrica[]=$_POST["rubrica"];
+    $_SESSION['rubrica']=$rubrica;
+    SalvaContatti();
+}
                 echo<<<fine
                 <div class="card-body" style="text-align:center;">
                             <b>Inserisci un nuovo contatto</b>
@@ -63,27 +50,36 @@ if (!isset($_SESSION['contatti'])) {
                             </form>
                         </div>
                 fine;
-            }
+
+                function SalvaContatti(){
+                    global $rubrica;
+                    echo"Array di record:";
+                    echo"<pre>";
+                    print_r($rubrica);
+                    echo"</pre>";
+                }
+            
+
             function Elenco(){
-                $contatti=$_SESSION['contatti'];
-                echo"<table border=1>";
-                echo"<tr>
-                <th>Nome</th>
-                <th>Cognome</th> 
-                <th>Telefono</th>
-                <th>E-mail</th>
-                <th>Città</th>
-                <th>Indirizzo</th>";
-                echo "</tr>";
-                    for($i=0;$i<count($contatti);$i++){
-                       echo" <tr>";
-                        foreach($contatti as $valore){
-                           echo "<td>".$valore."</td>";
-                             }
-                               echo" </tr>";
-                        } 
-                        echo"</table>";     
-            }
-       ?>
+                global $rubrica;?>
+                <table class="table table-success table-striped"><tr> 
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Telefono</th>
+                    <th>E-mail</th>
+                    <th>Città</th>
+                    <th>Indirizzo</th>
+                    </tr>
+                        <?php foreach ($rubrica as $record){?>
+                            <tr>
+                            <?php foreach ($record as $campo) {?>
+                                <td><?php $campo?></td>
+                            <?php }?> 
+                            </tr>  
+                            <?php }?>
+                                
+                        <?php } 
+                        ?>
+                </table>
     </body>
 </html>
