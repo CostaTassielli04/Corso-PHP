@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,12 +11,14 @@
 <body>
 <?php
 session_start();
+//controllo se la mia variabile di invio è settata, altrimenti inizializzo il vettore e se la mia sessione non è stata creata, le assegno il valore del vettore
 if(!isset($_POST['invia'])){
-    $rubrica=array();    
-    $_SESSION['rubrica']=$rubrica;
-}else if($_POST['invia']=="rubrica"){
-    Elenco();
+    $rubrica=array();
+    if(!isset($_SESSION['rubrica'])){
+        $_SESSION['rubrica']=$rubrica;
+    }     
 }
+//altrimenti aggiorno il mio array di record e con lui anche la sessione
 else{
     $rubrica=$_SESSION['rubrica'];
     $rubrica[]=$_POST["rubrica"];
@@ -30,56 +31,34 @@ else{
                             <form action="carica.php" method="POST" class="login">
                             <div class="form-group">
                             <label for="nome">Nome:</label>
-                            <input type="text" name="rubrica[nome]" placeholder="Luigi"><br>
+                            <input type="text" name="rubrica[nome]" placeholder="Luigi" required><br>
                             <label for="conome">Cognome:</label>
-                            <input type="text" name="rubrica[cognome]" placeholder="Verdi"><br>
+                            <input type="text" name="rubrica[cognome]" placeholder="Verdi" required><br>
                             <label for="tel">Cellulare:</label>
                             <input type="text" name="rubrica[tel]" placeholder="+39 ..." ><br>
                             <label for="nome">E-mail:</label>
-                            <input type="text" name="rubrica[mail]" placeholder="luigi.verdi@gmail.com"><br>
+                            <input type="email" name="rubrica[mail]" placeholder="luigi.verdi@gmail.com" required><br>
                             <label for="conome">Residenza:</label>
-                            <input type="text" name="rubrica[residenza]" placeholder="Roma"><br>
+                            <input type="text" name="rubrica[residenza]" placeholder="Roma" required><br>
                             <label for="tel">Indirizzo:</label>
-                            <input type="text" name="rubrica[indirizzo]" placeholder="Via Appia" >
+                            <input type="text" name="rubrica[indirizzo]" placeholder="Via Appia" required>
                             </div><br>
                             <div class="card-footer">
                             <button type="submit" class="btn btn-success" value="invia" name="invia">Aggiungi Contatto</button>
-                            <button type="submit" class="btn btn-primary" value="rubrica" name="invia">Vai a Lista Contatti</button>
+                            <a href="registro.php" class="btn btn-outline-secondary">Elenco</a>
                             <button type="reset" class="btn btn-warning" float-right" value="cancella" name="cancella">Cancella</button>
                             </div>
                             </form>
                         </div>
                 fine;
 
-                function SalvaContatti(){
+                function SalvaContatti(){ //mostro la struttura del mio array di record
                     global $rubrica;
                     echo"Array di record:";
                     echo"<pre>";
                     print_r($rubrica);
                     echo"</pre>";
                 }
-            
-
-            function Elenco(){
-                global $rubrica;?>
-                <table class="table table-success table-striped"><tr> 
-                    <th>Nome</th>
-                    <th>Cognome</th>
-                    <th>Telefono</th>
-                    <th>E-mail</th>
-                    <th>Città</th>
-                    <th>Indirizzo</th>
-                    </tr>
-                        <?php foreach ($rubrica as $record){?>
-                            <tr>
-                            <?php foreach ($record as $campo) {?>
-                                <td><?php $campo?></td>
-                            <?php }?> 
-                            </tr>  
-                            <?php }?>
-                                
-                        <?php } 
-                        ?>
-                </table>
+            ?>
     </body>
 </html>
