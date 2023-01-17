@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form class="form-inline my-2 my-lg-4">
+<form class="form-inline my-2 my-lg-4" action="scheda.php" method="POST">
       <input class="form-control mr-sm-2" type="search" placeholder="Inserisci qui il film da ricercare" aria-label="Search"><br>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="invia">Cerca Film</button>
     </form>
