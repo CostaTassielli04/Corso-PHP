@@ -21,16 +21,10 @@ $contatti=$_SESSION['rubrica'];?>
                     <th>Città</th>
                     <th>Indirizzo</th>
                     </tr>
-                        <?php //con questi due foreach stampo i campi dell'array di record
-                        foreach ($contatti as $record){?> 
-                            <tr>
-                            <?php foreach ($record as $campo) {?>
-                                <td><?php echo $campo ?></td>
-                            <?php }?> 
-                            </tr>  
-                            <?php }?>
+                        <?php //con questi due foreach stampo i campi dell'array di record?>
+                        
                             
                 </table>
-                <a href="carica.php" class="btn btn-outline-primary">Ritorna ad inserire contatti</a>
+                <a href="film.php" class="btn btn-outline-primary">Ritorna alla homepage</a>
 </body>
 </html>
