@@ -12,8 +12,8 @@
 </head>
 <body>
 
-<form class="form-inline my-2 my-lg-4" action="scheda.php" method="POST">
-      <input class="form-control mr-sm-2" type="search" placeholder="Inserisci qui il film da ricercare" aria-label="Search"><br>
+<form class="form-inline my-2 my-lg-4" action="film.php" method="POST">
+      <input class="form-control mr-sm-2" type="search" placeholder="Inserisci qui il film da ricercare" aria-label="Search" name="cerca"><br>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="invia">Cerca Film</button>
     </form>
     <?php
@@ -29,8 +29,13 @@
          die ("<br>Connessione non riuscita " . $mysqli->connect_error . " " . $mysqli->connect_errno);
     }
     else{
-        //inizializzo la query e la carico
-        $query="SELECT * FROM Film";
+        //inizializzo la query e la carico a seconda delle condizioni
+        if(isset($_POST['invia'])){
+            $input=$_POST['cerca'];
+            $query="SELECT * FROM Film WHERE nome LIKE '%$input%'";
+        }else{
+            $query="SELECT * FROM Film";
+        }
         $result=$mysqli->query($query) or die ("<br>Connessione non riuscita " . $mysqli->error . " " . $mysqli->errno);?>
         <table class="table table-success table-striped">
                     <tr> 
