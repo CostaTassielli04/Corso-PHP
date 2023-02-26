@@ -22,12 +22,14 @@
          die ("<br>Connessione non riuscita " . $conn->connect_error . " " . $conn->connect_errno);
     }
     else{
+        //recupero i parametri dal form e carico la nuova query
         $cod_articolo=$_POST['ispeziona'];
         $prezzo_acquisto=$_POST['price'];
         $dettaglio="SELECT * FROM Articoli WHERE CodiceArticolo=$cod_articolo";
         $info=$conn->query($dettaglio);
-        $prezzo_iniziale=$info->fetch_assoc();
-        $differenza=($prezzo_acquisto/$prezzo_iniziale)*100;
+        $temp=$info->fetch_assoc();
+        $prezzo_iniziale=$temp['PrezzoListino'];
+        $differenza=($prezzo_acquisto-$prezzo_iniziale)*100/$prezzo_iniziale;
     ?>
     <table class="table table-success table-striped">
                         <tr> 
@@ -38,7 +40,7 @@
                         <th>Taglia</th>
                         <th>PrezzoListino</th>
                         <th>Collezione</th>
-                        <th>Percentuale di differenza</th>
+                        <th>Sconto o incremento</th>
                         </tr>
                         <tr>
        <?php while ($row = $info->fetch_assoc()){
@@ -50,11 +52,11 @@
         <td ><?php echo $row['Taglia']?></td>
         <td ><?php echo $row['PrezzoListino']?></td>
         <td ><?php echo $row['Collezione']?></td>
-        <td ><?php echo $differenza?></td>
+        <td ><?php echo $differenza."%"?></td>
     <?php } 
 
     }
-    $conn->close()
+    $conn->close();
     ?>
 <form action="vendita.php" method="POST">
         <button type="submit" class="btn btn-success" value="ritorna" name="new_insert">Fai una nuova vendita</button>

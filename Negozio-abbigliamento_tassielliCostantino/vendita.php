@@ -29,10 +29,13 @@
         }
     }
     
-    function Prenotazione(){
+    function Prenotazione(){ //con questa funzione invio i dati necessari per effettuare a vendita di uno degli articoli del database
         global $mysqli;
         $sql="SELECT DISTINCT CodiceArticolo FROM Articoli";
+        $sql2="SELECT DISTINCT nome,cognome FROM Dipendenti";
+        $consumatori=$mysqli->query($sql2);
         $pezzi=$mysqli->query($sql);
+        
         echo <<<fine
         <form action="vendita.php" method="POST" class="login">
             <div class="form-group">
@@ -54,6 +57,13 @@
                     <option ><?php echo $row['CodiceArticolo']?></option>
                 <?php }?>   
                 </select><br>
+                <select  aria-label="Disabled select example" name="dipendente">
+                <option selected></option>
+                <?php  while ($record = $consumatori->fetch_assoc()){
+                        ?>
+                    <option><?php echo $record['cognome'] ." ". $record['nome']?></option>
+                <?php }?>   
+                </select><br>
                 <div class="card-footer">
                 <button type="submit" class="btn btn-success" value="invia" name="invia">Vendi</button>
                 <button type="reset" class="btn btn-warning"  value="cancella" name="cancella">Cancella</button>
@@ -64,12 +74,22 @@
 
     function Erogazione(){
         global $mysqli;
+        //recupero i parametri dal form
         $qta=$_POST['quantita'];
         $prezzo=$_POST['prezzo'];
         $data=$_POST['data'];
         $codice=$_POST['codice'];
-        $query="INSERT INTO Vendite(Quantita,Prezzo,DataVendita,CodArticolo) VALUES($qta,$prezzo,'$data','$codice')";
+        $dip=$_POST['dipendente'];
+
+        //queries N.B:(verificare il nome delle colonne del database)
+        $query2="SELECT IdDipendente FROM Dipendenti WHERE cognome IN('$dip') AND nome IN('$dip')";
+        $result=$mysqli->query($query2)  or die ("<br>Connessione non riuscita " . $mysqli->error . " " . $mysqli->errno);
+        $riga=$result->fetch_assoc();
+        $id_dip=$riga['IdDipendente'];
+        $query="INSERT INTO Vendite(Quantita,Prezzo,DataVendita,CodArticolo,IdDipendente) VALUES($qta,$prezzo,'$data','$codice',$id_dip)";
         $result=$mysqli->query($query) or die ("<br>Connessione non riuscita " . $mysqli->error . " " . $mysqli->errno);
+        
+        //vado nell'altra pagina a visualizzare nel dettaglio il prodotto comprato
         echo "<h2>Vendita effettuata con successo!!</h2>";
         echo<<<fine
         <form action="vedi-articolo.php" method="POST">
