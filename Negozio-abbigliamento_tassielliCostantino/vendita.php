@@ -82,12 +82,12 @@
         $dip=$_POST['dipendente'];
 
         //queries N.B:(verificare il nome delle colonne del database)
-        $query2="SELECT IdDipendente FROM Dipendenti WHERE cognome IN('$dip') AND nome IN('$dip')";
-        $result=$mysqli->query($query2)  or die ("<br>Connessione non riuscita " . $mysqli->error . " " . $mysqli->errno);
+        $query2="SELECT Iddipendente FROM Dipendenti WHERE Cognome IN('$dip') AND Nome IN('$dip')";
+        $result=$mysqli->query($query2)  or die ("<br>Query non riuscita " . $mysqli->error . " " . $mysqli->errno);
         $riga=$result->fetch_assoc();
-        $id_dip=$riga['IdDipendente'];
-        $query="INSERT INTO Vendite(Quantita,Prezzo,DataVendita,CodArticolo,IdDipendente) VALUES($qta,$prezzo,'$data','$codice',$id_dip)";
-        $result=$mysqli->query($query) or die ("<br>Connessione non riuscita " . $mysqli->error . " " . $mysqli->errno);
+        $id_dip=$riga['Iddipendente'];
+        $query="INSERT INTO Vendite(Quantita,Prezzo,DataVendita,CodArticolo,CodDipendente) VALUES($qta,$prezzo,'$data','$codice',$id_dip)";
+        $result=$mysqli->query($query) or die ("<br>Query non riuscita " . $mysqli->error . " " . $mysqli->errno);
         
         //vado nell'altra pagina a visualizzare nel dettaglio il prodotto comprato
         echo "<h2>Vendita effettuata con successo!!</h2>";
