@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>User area</title>
+        <title>Vendite auto</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -27,13 +27,15 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="?option=home">Home</a>
                         </li>
-                        <li class="nav-item ">
+                        <li class="nav-item active">
                             <a class="nav-link" href="?option=form">Form</a>
                         </li>
                         <form class="form-inline my-2 my-lg-0" method="Post" action="?option=home">
-                            <input class="form-control mr-sm-3" type="text" placeholder="inserisci nome,cognome,data effettuazione o arrivo dell'ordine..." name="valore">
+                            <input class="form-control mr-sm-3" type="text" placeholder="inserisci nome,cognome cliente" name="valore">
+                            Data inizio:<input class="form-control mr-sm-3" type="date" placeholder="inserisci data inizio ordine..." name="intervallo1" >
+                            Data Fine:<input class="form-control mr-sm-3" type="date" placeholder="inserisci data fine ordine..." name="intervallo2">
                             <button class="btn btn-secondary my-2 my-sm-0" type="submit" name="invia">Search</button>
-                    </form>
+                        </form>
                 </div>
             </nav>
         </div>    

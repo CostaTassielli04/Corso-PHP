@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$user = "5a";
-$pass = "dbA1dmin5";
-$db = "5a_tassielli-costantino-cinema";
+$user = "root";
+$pass = "Kost4_JJ?";
+$db = "esercizi";
 
 // connessione al DBMS con il procedimento ad oggetti
 $conn= new mysqli ($host, $user, $pass, $db);
